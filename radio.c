@@ -15,7 +15,6 @@
 /* Includes ------------------------------------------------------------------*/
 
 #include "rail.h"
-#include "sl_flex_rail_package_assistant.h"
 #include "sl_rail_util_init.h"
 
 #include "radio.h"
@@ -44,6 +43,6 @@ void radio_init(void)
 void radio_tx(void)
 {
     RAIL_Status_t rail_status = RAIL_STATUS_NO_ERROR;
-    prepare_package(rail_handle, out_packet, sizeof(out_packet));
+    uint16_t bytes_writen_in_fifo = RAIL_WriteTxFifo(rail_handle, out_packet, sizeof(out_packet), true);
     rail_status = RAIL_StartTx(rail_handle, CHANNEL, RAIL_TX_OPTIONS_DEFAULT, NULL);
 }
