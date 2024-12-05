@@ -51,7 +51,6 @@ PROJECT_SOURCE_FILES = \
  $(SDK_PATH)/platform/service/udelay/src/sl_udelay.c \
  $(SDK_PATH)/platform/service/udelay/src/sl_udelay_armv6m_gcc.S \
  app_init.c \
- app_process.c \
  autogen/rail_config.c \
  autogen/sl_board_default_init.c \
  autogen/sl_event_handler.c \
