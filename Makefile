@@ -13,7 +13,7 @@ all: debug
 ####################################################################
 
 # Values set by the initial generation
-PROJECTNAME = rail_soc_empty
+PROJECTNAME = silabs_simple_rxtx
 ARM_GCC_DIR_WIN = C:/SiliconLabs/SimplicityStudio/v5/developer/toolchains/gnu_arm/12.2.rel1_2023.7/
 ARM_GCC_DIR_OSX = 
 ARM_GCC_DIR_LINUX = 
@@ -92,7 +92,7 @@ LD      = "$(ARM_GCC_DIR)/bin/arm-none-eabi-gcc"
 # Include sub-makefiles                                            #
 # Define a makefile here to add files/settings to the build.       #
 ####################################################################
--include rail_soc_empty.project.mak
+-include silabs_simple_rxtx.project.mak
 
 
 ####################################################################
