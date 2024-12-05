@@ -9,6 +9,7 @@ COPIED_SDK_PATH ?= simplicity_sdk_2024.6.2
 
 # This uses the explicit build rules below
 PROJECT_SOURCE_FILES = \
+ $(SDK_PATH)/app/flex/component/rail/sl_flex_rail_package_assistant/sl_flex_rail_package_assistant.c \
  $(SDK_PATH)/hardware/board/src/sl_board_control_gpio.c \
  $(SDK_PATH)/hardware/board/src/sl_board_init.c \
  $(SDK_PATH)/hardware/driver/configuration_over_swo/src/sl_cos.c \
@@ -50,13 +51,13 @@ PROJECT_SOURCE_FILES = \
  $(SDK_PATH)/platform/service/system/src/sl_system_process_action.c \
  $(SDK_PATH)/platform/service/udelay/src/sl_udelay.c \
  $(SDK_PATH)/platform/service/udelay/src/sl_udelay_armv6m_gcc.S \
- app_init.c \
  autogen/rail_config.c \
  autogen/sl_board_default_init.c \
  autogen/sl_event_handler.c \
  autogen/sl_rail_util_callbacks.c \
  autogen/sl_rail_util_init.c \
- main.c
+ main.c \
+ radio.c
 
 C_SOURCE_FILES   += $(filter %.c, $(PROJECT_SOURCE_FILES))
 CXX_SOURCE_FILES += $(filter %.cpp, $(PROJECT_SOURCE_FILES))
@@ -133,7 +134,9 @@ INCLUDES += \
  -I$(SDK_PATH)/platform/radio/rail_lib/plugin/rail_util_rssi \
  -I$(SDK_PATH)/platform/common/toolchain/inc \
  -I$(SDK_PATH)/platform/service/system/inc \
- -I$(SDK_PATH)/platform/service/udelay/inc
+ -I$(SDK_PATH)/platform/service/udelay/inc \
+ -I$(SDK_PATH)/app/flex/component/rail/sl_flex_rail_package_assistant \
+ -I$(SDK_PATH)/app/flex/component/rail/sl_flex_rail_packet_asm
 
 GROUP_START =-Wl,--start-group
 GROUP_END =-Wl,--end-group

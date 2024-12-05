@@ -36,7 +36,9 @@
 #if defined(SL_CATALOG_POWER_MANAGER_PRESENT)
   #include "sl_power_manager.h"
 #endif
-#include "app_init.h"
+#include "sl_udelay.h"
+#include "radio.h"
+
 #include "sl_system_process_action.h"
 
 // -----------------------------------------------------------------------------
@@ -54,8 +56,6 @@
 // -----------------------------------------------------------------------------
 //                                Static Variables
 // -----------------------------------------------------------------------------
-/// A static handle of a RAIL instance
-static RAIL_Handle_t rail_handle;
 // -----------------------------------------------------------------------------
 //                          Public Function Definitions
 // -----------------------------------------------------------------------------
@@ -71,7 +71,7 @@ int main(void)
 
   // Initialize the application. For example, create periodic timer(s) or
   // task(s) if the kernel is present.
-  rail_handle = app_init();
+  radio_init();
 
   while (1) {
     // Do not remove this call: Silicon Labs components process action routine
@@ -82,6 +82,9 @@ int main(void)
     // Let the CPU go to sleep if the system allows it.
     sl_power_manager_sleep();
 #endif
+
+    sl_udelay_wait(1000000);
+    radio_tx();
   }
 }
 
