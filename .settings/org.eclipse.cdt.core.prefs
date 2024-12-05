@@ -1,0 +1,6 @@
+eclipse.preferences.version=1
+environment/project/com.silabs.ide.si32.gcc.cdt.managedbuild.toolchain.exe.664301626/PATH/delimiter=;
+environment/project/com.silabs.ide.si32.gcc.cdt.managedbuild.toolchain.exe.664301626/PATH/operation=replace
+environment/project/com.silabs.ide.si32.gcc.cdt.managedbuild.toolchain.exe.664301626/PATH/value=C\:\\SiliconLabs\\SimplicityStudio\\v5\\developer\\toolchains\\gnu_arm\\12.2.rel1_2023.7\\bin;C\:\\SiliconLabs\\SimplicityStudio\\v5\\support\\common\\build\\msys\\1.0\\bin;
+environment/project/com.silabs.ide.si32.gcc.cdt.managedbuild.toolchain.exe.664301626/append=true
+environment/project/com.silabs.ide.si32.gcc.cdt.managedbuild.toolchain.exe.664301626/appendContributed=true
