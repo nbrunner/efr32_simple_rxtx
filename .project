@@ -22,5 +22,19 @@
 		<nature>org.eclipse.cdt.core.cnature</nature>
 		<nature>org.eclipse.cdt.managedbuilder.core.managedBuildNature</nature>
 		<nature>org.eclipse.cdt.managedbuilder.core.ScannerConfigNature</nature>
+		<nature>org.eclipse.cdt.core.ccnature</nature>
 	</natures>
+	<linkedResources>
+		<link>
+			<name>simplicity_sdk_2024.6.2</name>
+			<type>2</type>
+			<locationURI>STUDIO_SDK_LOC</locationURI>
+		</link>
+	</linkedResources>
+	<variableList>
+		<variable>
+			<name>STUDIO_SDK_LOC</name>
+			<value>file:/C:/Users/nbrun/SimplicityStudio/SDKs/simplicity_sdk</value>
+		</variable>
+	</variableList>
 </projectDescription>
