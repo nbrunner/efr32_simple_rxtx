@@ -13,11 +13,11 @@ PROJECT_SOURCE_FILES = \
  $(SDK_PATH)/hardware/board/src/sl_board_init.c \
  $(SDK_PATH)/hardware/driver/configuration_over_swo/src/sl_cos.c \
  $(SDK_PATH)/hardware/driver/mx25_flash_shutdown/src/sl_mx25_flash_shutdown_eusart/sl_mx25_flash_shutdown.c \
+ $(SDK_PATH)/platform/Device/SiliconLabs/EFR32FG25/Source/startup_efr32fg25.c \
+ $(SDK_PATH)/platform/Device/SiliconLabs/EFR32FG25/Source/system_efr32fg25.c \
  $(SDK_PATH)/platform/common/src/sl_assert.c \
  $(SDK_PATH)/platform/common/src/sl_core_cortexm.c \
  $(SDK_PATH)/platform/common/src/sl_syscalls.c \
- $(SDK_PATH)/platform/Device/SiliconLabs/EFR32FG25/Source/startup_efr32fg25.c \
- $(SDK_PATH)/platform/Device/SiliconLabs/EFR32FG25/Source/system_efr32fg25.c \
  $(SDK_PATH)/platform/driver/debug/src/sl_debug_swo.c \
  $(SDK_PATH)/platform/emlib/src/em_acmp.c \
  $(SDK_PATH)/platform/emlib/src/em_cmu.c \
@@ -98,42 +98,42 @@ ASM_DEFS += \
  '-DSL_CODE_COMPONENT_CORE=core'
 
 INCLUDES += \
- -Iautogen \
- -Iconfig \
- -Iconfig/rail \
- -I. \
- -I$(SDK_PATH)/platform/Device/SiliconLabs/EFR32FG25/Include \
  -I$(SDK_PATH)/hardware/board/inc \
+ -I$(SDK_PATH)/hardware/driver/configuration_over_swo/inc \
+ -I$(SDK_PATH)/hardware/driver/mx25_flash_shutdown/inc/sl_mx25_flash_shutdown_eusart \
+ -I$(SDK_PATH)/platform/CMSIS/Core/Include \
+ -I$(SDK_PATH)/platform/Device/SiliconLabs/EFR32FG25/Include \
+ -I$(SDK_PATH)/platform/common/inc \
+ -I$(SDK_PATH)/platform/common/toolchain/inc \
+ -I$(SDK_PATH)/platform/driver/debug/inc \
+ -I$(SDK_PATH)/platform/emlib/inc \
+ -I$(SDK_PATH)/platform/radio/rail_lib/chip/efr32/efr32xg2x \
+ -I$(SDK_PATH)/platform/radio/rail_lib/common \
+ -I$(SDK_PATH)/platform/radio/rail_lib/plugin/pa-conversions \
+ -I$(SDK_PATH)/platform/radio/rail_lib/plugin/pa-conversions/efr32xg25 \
+ -I$(SDK_PATH)/platform/radio/rail_lib/plugin/rail_util_callbacks \
+ -I$(SDK_PATH)/platform/radio/rail_lib/plugin/rail_util_protocol \
+ -I$(SDK_PATH)/platform/radio/rail_lib/plugin/rail_util_pti \
+ -I$(SDK_PATH)/platform/radio/rail_lib/plugin/rail_util_rssi \
+ -I$(SDK_PATH)/platform/radio/rail_lib/protocol/ble \
+ -I$(SDK_PATH)/platform/radio/rail_lib/protocol/ieee802154 \
+ -I$(SDK_PATH)/platform/radio/rail_lib/protocol/sidewalk \
+ -I$(SDK_PATH)/platform/radio/rail_lib/protocol/wmbus \
+ -I$(SDK_PATH)/platform/radio/rail_lib/protocol/zwave \
  -I$(SDK_PATH)/platform/service/clock_manager/inc \
  -I$(SDK_PATH)/platform/service/clock_manager/src \
- -I$(SDK_PATH)/platform/CMSIS/Core/Include \
- -I$(SDK_PATH)/platform/common/inc \
- -I$(SDK_PATH)/hardware/driver/configuration_over_swo/inc \
- -I$(SDK_PATH)/platform/driver/debug/inc \
- -I$(SDK_PATH)/platform/service/device_manager/inc \
  -I$(SDK_PATH)/platform/service/device_init/inc \
- -I$(SDK_PATH)/platform/emlib/inc \
+ -I$(SDK_PATH)/platform/service/device_manager/inc \
  -I$(SDK_PATH)/platform/service/interrupt_manager/inc \
  -I$(SDK_PATH)/platform/service/interrupt_manager/inc/arm \
  -I$(SDK_PATH)/platform/service/memory_manager/inc \
  -I$(SDK_PATH)/platform/service/mpu/inc \
- -I$(SDK_PATH)/hardware/driver/mx25_flash_shutdown/inc/sl_mx25_flash_shutdown_eusart \
- -I$(SDK_PATH)/platform/radio/rail_lib/common \
- -I$(SDK_PATH)/platform/radio/rail_lib/protocol/ble \
- -I$(SDK_PATH)/platform/radio/rail_lib/protocol/ieee802154 \
- -I$(SDK_PATH)/platform/radio/rail_lib/protocol/wmbus \
- -I$(SDK_PATH)/platform/radio/rail_lib/protocol/zwave \
- -I$(SDK_PATH)/platform/radio/rail_lib/chip/efr32/efr32xg2x \
- -I$(SDK_PATH)/platform/radio/rail_lib/protocol/sidewalk \
- -I$(SDK_PATH)/platform/radio/rail_lib/plugin/rail_util_callbacks \
- -I$(SDK_PATH)/platform/radio/rail_lib/plugin/pa-conversions \
- -I$(SDK_PATH)/platform/radio/rail_lib/plugin/pa-conversions/efr32xg25 \
- -I$(SDK_PATH)/platform/radio/rail_lib/plugin/rail_util_protocol \
- -I$(SDK_PATH)/platform/radio/rail_lib/plugin/rail_util_pti \
- -I$(SDK_PATH)/platform/radio/rail_lib/plugin/rail_util_rssi \
- -I$(SDK_PATH)/platform/common/toolchain/inc \
  -I$(SDK_PATH)/platform/service/system/inc \
- -I$(SDK_PATH)/platform/service/udelay/inc
+ -I$(SDK_PATH)/platform/service/udelay/inc \
+ -I. \
+ -Iautogen \
+ -Iconfig \
+ -Iconfig/rail
 
 GROUP_START =-Wl,--start-group
 GROUP_END =-Wl,--end-group
