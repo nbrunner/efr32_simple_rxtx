@@ -15,6 +15,8 @@
 
 /* Includes ------------------------------------------------------------------*/
 
+#include <stdbool.h>
+
 #include "sl_component_catalog.h"
 #include "sl_system_init.h"
 #if defined(SL_CATALOG_POWER_MANAGER_PRESENT)
@@ -24,6 +26,10 @@
 #include "sl_system_process_action.h"
 
 #include "radio.h"
+
+/* Private define ------------------------------------------------------------*/
+
+#define TX true
 
 /* Public functions ----------------------------------------------------------*/
 
@@ -48,7 +54,11 @@ int main(void)
         sl_power_manager_sleep();
 #endif
 
+#if TX
         sl_udelay_wait(1000000);
         radio_tx();
+#else
+        radio_rx();
+#endif
     }
 }

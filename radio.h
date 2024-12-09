@@ -21,4 +21,6 @@ void radio_init(void);
 
 void radio_tx(void);
 
+void radio_rx(void);
+
 #endif
