@@ -43,7 +43,6 @@ extern uint32_t protocolAccelerationBuffer[];
 
 #define RADIO_CONFIG_XTAL_FREQUENCY 39000000UL
 
-#define RAIL0_CHANNEL_GROUP_1_PHY_STUDIO_868M_GMSK_500KBPS
 #define RAIL0_CHANNEL_GROUP_1_PROFILE_BASE
 extern const RAIL_ChannelConfig_t *channelConfigs[];
 #define RADIO_CONFIG_RFFPLL_CONFIG_PRESENT
