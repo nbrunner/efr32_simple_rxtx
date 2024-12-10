@@ -19,12 +19,16 @@ PROJECT_SOURCE_FILES = \
  $(SDK_PATH)/platform/common/src/sl_core_cortexm.c \
  $(SDK_PATH)/platform/common/src/sl_syscalls.c \
  $(SDK_PATH)/platform/driver/debug/src/sl_debug_swo.c \
+ $(SDK_PATH)/platform/emdrv/dmadrv/src/dmadrv.c \
+ $(SDK_PATH)/platform/emdrv/gpiointerrupt/src/gpiointerrupt.c \
+ $(SDK_PATH)/platform/emdrv/uartdrv/src/uartdrv.c \
  $(SDK_PATH)/platform/emlib/src/em_acmp.c \
  $(SDK_PATH)/platform/emlib/src/em_cmu.c \
  $(SDK_PATH)/platform/emlib/src/em_core.c \
  $(SDK_PATH)/platform/emlib/src/em_emu.c \
  $(SDK_PATH)/platform/emlib/src/em_eusart.c \
  $(SDK_PATH)/platform/emlib/src/em_gpio.c \
+ $(SDK_PATH)/platform/emlib/src/em_ldma.c \
  $(SDK_PATH)/platform/emlib/src/em_msc.c \
  $(SDK_PATH)/platform/emlib/src/em_prs.c \
  $(SDK_PATH)/platform/emlib/src/em_system.c \
@@ -42,6 +46,7 @@ PROJECT_SOURCE_FILES = \
  $(SDK_PATH)/platform/service/device_init/src/sl_device_init_dcdc_s2.c \
  $(SDK_PATH)/platform/service/device_init/src/sl_device_init_emu_s2.c \
  $(SDK_PATH)/platform/service/device_manager/clocks/sl_device_clock_efr32xg25.c \
+ $(SDK_PATH)/platform/service/device_manager/devices/sl_device_peripheral_hal_efr32xg25.c \
  $(SDK_PATH)/platform/service/device_manager/src/sl_device_clock.c \
  $(SDK_PATH)/platform/service/interrupt_manager/src/sl_interrupt_manager_cortexm.c \
  $(SDK_PATH)/platform/service/memory_manager/src/sl_memory_manager_region.c \
@@ -56,7 +61,8 @@ PROJECT_SOURCE_FILES = \
  autogen/sl_rail_util_callbacks.c \
  autogen/sl_rail_util_init.c \
  main.c \
- radio.c
+ radio.c \
+ uart.c
 
 C_SOURCE_FILES   += $(filter %.c, $(PROJECT_SOURCE_FILES))
 CXX_SOURCE_FILES += $(filter %.cpp, $(PROJECT_SOURCE_FILES))
@@ -106,6 +112,13 @@ INCLUDES += \
  -I$(SDK_PATH)/platform/common/inc \
  -I$(SDK_PATH)/platform/common/toolchain/inc \
  -I$(SDK_PATH)/platform/driver/debug/inc \
+ -I$(SDK_PATH)/platform/emdrv/common/inc \
+ -I$(SDK_PATH)/platform/emdrv/dmadrv/config \
+ -I$(SDK_PATH)/platform/emdrv/dmadrv/inc \
+ -I$(SDK_PATH)/platform/emdrv/dmadrv/inc/s2_signals \
+ -I$(SDK_PATH)/platform/emdrv/gpiointerrupt/inc \
+ -I$(SDK_PATH)/platform/emdrv/uartdrv/config \
+ -I$(SDK_PATH)/platform/emdrv/uartdrv/inc \
  -I$(SDK_PATH)/platform/emlib/inc \
  -I$(SDK_PATH)/platform/radio/rail_lib/chip/efr32/efr32xg2x \
  -I$(SDK_PATH)/platform/radio/rail_lib/common \
@@ -128,6 +141,8 @@ INCLUDES += \
  -I$(SDK_PATH)/platform/service/interrupt_manager/inc/arm \
  -I$(SDK_PATH)/platform/service/memory_manager/inc \
  -I$(SDK_PATH)/platform/service/mpu/inc \
+ -I$(SDK_PATH)/platform/service/sleeptimer/config \
+ -I$(SDK_PATH)/platform/service/sleeptimer/inc \
  -I$(SDK_PATH)/platform/service/system/inc \
  -I$(SDK_PATH)/platform/service/udelay/inc \
  -I. \

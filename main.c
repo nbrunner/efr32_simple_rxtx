@@ -16,6 +16,7 @@
 /* Includes ------------------------------------------------------------------*/
 
 #include <stdbool.h>
+#include <string.h>
 
 #include "sl_component_catalog.h"
 #include "sl_system_init.h"
@@ -26,10 +27,12 @@
 #include "sl_system_process_action.h"
 
 #include "radio.h"
+#include "uart.h"
 
 /* Private define ------------------------------------------------------------*/
 
 #define TX true
+#define RX_MESSAGE "Frame received\n"
 
 /* Public functions ----------------------------------------------------------*/
 
@@ -40,9 +43,9 @@ int main(void)
     // this call.
     sl_system_init();
 
-    // Initialize the application. For example, create periodic timer(s) or
-    // task(s) if the kernel is present.
+    // Initialize the application.
     radio_init();
+    uart_init();
 
     while (1) {
         // Do not remove this call: Silicon Labs components process action routine
@@ -59,6 +62,7 @@ int main(void)
         radio_tx();
 #else
         radio_rx();
+        uart_tx((uint8_t*)RX_MESSAGE, strlen(RX_MESSAGE));
 #endif
     }
 }
