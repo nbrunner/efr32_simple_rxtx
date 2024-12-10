@@ -32,7 +32,16 @@
 /* Private define ------------------------------------------------------------*/
 
 #define TX true
+
 #define RX_MESSAGE "Frame received\n"
+#define TX_LENGTH 16
+
+/* Private variables ---------------------------------------------------------*/
+
+static uint8_t tx_frame[TX_LENGTH] = {
+    0x0F, 0x16, 0x11, 0x22, 0x33, 0x44, 0x55, 0x66,
+    0x77, 0x88, 0x99, 0xAA, 0xBB, 0xCC, 0xDD, 0xEE,
+};
 
 /* Public functions ----------------------------------------------------------*/
 
@@ -59,7 +68,7 @@ int main(void)
 
 #if TX
         sl_udelay_wait(1000000);
-        radio_tx();
+        radio_tx(tx_frame, TX_LENGTH);
 #else
         radio_rx();
         uart_tx((uint8_t*)RX_MESSAGE, strlen(RX_MESSAGE));

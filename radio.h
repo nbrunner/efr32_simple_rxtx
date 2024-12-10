@@ -15,11 +15,15 @@
 #ifndef RADIO_H
 #define RADIO_H
 
+/* Includes ------------------------------------------------------------------*/
+
+#include <stdint.h>
+
 /* Exported functions --------------------------------------------------------*/
 
 void radio_init(void);
 
-void radio_tx(void);
+void radio_tx(const uint8_t* data, uint8_t len);
 
 void radio_rx(void);
 
