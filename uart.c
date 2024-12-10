@@ -14,6 +14,10 @@
 
 /* Includes ------------------------------------------------------------------*/
 
+#include <assert.h>
+#include <inttypes.h>
+#include <string.h>
+
 #include "uartdrv.h"
 
 #include "uart.h"
@@ -23,7 +27,8 @@
 #define VCOM_ENABLE_PORT gpioPortA
 #define VCOM_ENABLE_PIN  11
 
-#define QUEUE_SIZE 256
+#define QUEUE_SIZE 8
+#define RX_BUFFER_SIZE 256
 
 DEFINE_BUF_QUEUE(QUEUE_SIZE, rxQueue);
 DEFINE_BUF_QUEUE(QUEUE_SIZE, txQueue);
@@ -32,6 +37,17 @@ DEFINE_BUF_QUEUE(QUEUE_SIZE, txQueue);
 
 static UARTDRV_HandleData_t handle_data;
 static UARTDRV_Handle_t handle = &handle_data;
+
+static uint8_t rx_buffer[RX_BUFFER_SIZE];
+static uint8_t rx_buffer_read_index;
+
+/* Private functions declaration ---------------------------------------------*/
+
+static void rx_complete(struct UARTDRV_HandleData *handle,
+        Ecode_t transfer_status,
+        uint8_t *data,
+        UARTDRV_Count_t transfer_count);
+static uint8_t get_rx_buffer_write_index(void);
 
 /* Public functions ----------------------------------------------------------*/
 
@@ -62,6 +78,9 @@ void uart_init(void)
     init_data.txQueue = (UARTDRV_Buffer_FifoQueue_t*) &txQueue;
 
     UARTDRV_InitEuart(handle, &init_data);
+
+    Ecode_t err = UARTDRV_Receive(handle, rx_buffer, RX_BUFFER_SIZE, rx_complete);
+    assert(err == ECODE_EMDRV_UARTDRV_OK);
 }
 
 void uart_tx(const uint8_t* data, uint8_t len)
@@ -69,7 +88,46 @@ void uart_tx(const uint8_t* data, uint8_t len)
     UARTDRV_Transmit(handle, (uint8_t*)data, len, NULL);
 }
 
-void uart_rx(void)
+void uart_rx(uint8_t* data, uint8_t* len)
 {
+    uint8_t effective_len = uart_get_rx_available();
+    if (effective_len > *len) {
+        effective_len = *len;
+    } else {
+        *len = effective_len;
+    }
 
+    if (effective_len > UINT8_MAX - rx_buffer_read_index) {
+        uint8_t first_part = -rx_buffer_read_index;
+        memcpy(data, &rx_buffer[rx_buffer_read_index], first_part);
+        memcpy(data, rx_buffer, effective_len - first_part);
+    } else {
+        memcpy(data, &rx_buffer[rx_buffer_read_index], effective_len);
+    }
+    rx_buffer_read_index += effective_len;
+}
+
+uint8_t uart_get_rx_available(void)
+{
+    return get_rx_buffer_write_index() - rx_buffer_read_index;
+}
+
+/* Private functions implementation ------------------------------------------*/
+
+static void rx_complete(struct UARTDRV_HandleData *handle,
+        Ecode_t transfer_status,
+        uint8_t *data,
+        UARTDRV_Count_t transfer_count)
+{
+    Ecode_t err = UARTDRV_Receive(handle, rx_buffer, RX_BUFFER_SIZE, rx_complete);
+    assert(err == ECODE_EMDRV_UARTDRV_OK);
+}
+
+static uint8_t get_rx_buffer_write_index(void)
+{
+    uint8_t *buffer;
+    UARTDRV_Count_t received;
+    UARTDRV_Count_t remaining;
+    UARTDRV_GetReceiveStatus(handle, &buffer, &received, &remaining);
+    return received;
 }
