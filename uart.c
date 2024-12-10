@@ -100,7 +100,7 @@ void uart_rx(uint8_t* data, uint8_t* len)
     if (effective_len > UINT8_MAX - rx_buffer_read_index) {
         uint8_t first_part = -rx_buffer_read_index;
         memcpy(data, &rx_buffer[rx_buffer_read_index], first_part);
-        memcpy(data, rx_buffer, effective_len - first_part);
+        memcpy(&data[first_part], rx_buffer, effective_len - first_part);
     } else {
         memcpy(data, &rx_buffer[rx_buffer_read_index], effective_len);
     }
