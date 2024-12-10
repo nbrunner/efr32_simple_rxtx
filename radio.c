@@ -28,7 +28,6 @@
 
 static RAIL_Handle_t rail_handle;
 static RAIL_Events_t events;
-static uint8_t rx_buffer[BUFFER_SIZE];
 
 /* Public functions ----------------------------------------------------------*/
 
@@ -44,7 +43,7 @@ void radio_tx(const uint8_t* data, uint8_t len)
     rail_status = RAIL_StartTx(rail_handle, CHANNEL, RAIL_TX_OPTIONS_DEFAULT, NULL);
 }
 
-void radio_rx(void)
+void radio_rx(uint8_t* data, uint8_t* len)
 {
     RAIL_Status_t rail_status = RAIL_STATUS_NO_ERROR;
     RAIL_RxPacketInfo_t packet_info;
@@ -55,10 +54,13 @@ void radio_rx(void)
     if (status == RAIL_STATUS_NO_ERROR) {
         while ((events & RAIL_EVENTS_RX_COMPLETION) == 0);
         RAIL_RxPacketHandle_t packet_handle = RAIL_GetRxPacketInfo(rail_handle, RAIL_RX_PACKET_HANDLE_OLDEST_COMPLETE, &packet_info);
-        if (packet_handle != RAIL_RX_PACKET_HANDLE_INVALID) {
-            RAIL_CopyRxPacket(rx_buffer, &packet_info);
+        if ((packet_handle != RAIL_RX_PACKET_HANDLE_INVALID) && (packet_info.packetBytes <= *len)) {
+            RAIL_CopyRxPacket(data, &packet_info);
+            *len = packet_info.packetBytes;
             RAIL_GetRxPacketDetails(rail_handle, packet_handle, &packet_details);
             RAIL_ReleaseRxPacket(rail_handle, packet_handle);
+        } else {
+            *len = 0;
         }
     }
 }

@@ -25,6 +25,6 @@ void radio_init(void);
 
 void radio_tx(const uint8_t* data, uint8_t len);
 
-void radio_rx(void);
+void radio_rx(uint8_t* data, uint8_t* len);
 
 #endif

@@ -31,10 +31,12 @@
 
 /* Private define ------------------------------------------------------------*/
 
-#define TX true
+#define TX false
 
 #define RX_MESSAGE "Frame received\n"
 #define TX_LENGTH 16
+
+#define RX_MAX_LENGTH 255
 
 /* Private variables ---------------------------------------------------------*/
 
@@ -42,6 +44,7 @@ static uint8_t tx_frame[TX_LENGTH] = {
     0x0F, 0x16, 0x11, 0x22, 0x33, 0x44, 0x55, 0x66,
     0x77, 0x88, 0x99, 0xAA, 0xBB, 0xCC, 0xDD, 0xEE,
 };
+static uint8_t rx_frame[RX_MAX_LENGTH];
 
 /* Public functions ----------------------------------------------------------*/
 
@@ -70,8 +73,9 @@ int main(void)
         sl_udelay_wait(1000000);
         radio_tx(tx_frame, TX_LENGTH);
 #else
-        radio_rx();
-        uart_tx((uint8_t*)RX_MESSAGE, strlen(RX_MESSAGE));
+        uint8_t len = RX_MAX_LENGTH;
+        radio_rx(rx_frame, &len);
+        uart_tx(rx_frame, len);
 #endif
     }
 }
