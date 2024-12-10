@@ -38,11 +38,17 @@ void radio_init(void)
 
 void radio_tx(const uint8_t* data, uint8_t len)
 {
+    events = 0;
     uint16_t bytes_writen_in_fifo = RAIL_WriteTxFifo(rail_handle, data, len, true);
     assert(bytes_writen_in_fifo == len);
 
     RAIL_Status_t status = RAIL_StartTx(rail_handle, CHANNEL, RAIL_TX_OPTIONS_DEFAULT, NULL);
     assert(status == RAIL_STATUS_NO_ERROR);
+}
+
+bool radio_is_tx_completed(void)
+{
+    return (events & RAIL_EVENTS_TX_COMPLETION) != 0;
 }
 
 void radio_start_rx(void)

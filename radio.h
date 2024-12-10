@@ -26,6 +26,8 @@ void radio_init(void);
 
 void radio_tx(const uint8_t* data, uint8_t len);
 
+bool radio_is_tx_completed(void);
+
 void radio_start_rx(void);
 
 bool radio_is_rx_completed(void);

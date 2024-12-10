@@ -33,7 +33,6 @@
 
 #define MAX_LENGTH 255
 #define TIMEOUT_UART_RX 10000
-#define TIMEOUT_RADIO_TX 10000
 
 /* Private variables ---------------------------------------------------------*/
 
@@ -68,7 +67,7 @@ int main(void)
             uint8_t len = MAX_LENGTH;
             uart_rx(frame, &len);
             radio_tx(frame, len);
-            sl_udelay_wait(TIMEOUT_RADIO_TX);
+            while(!radio_is_tx_completed());
             radio_start_rx();
         }
 
