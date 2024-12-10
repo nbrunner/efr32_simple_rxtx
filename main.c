@@ -31,10 +31,9 @@
 
 /* Private define ------------------------------------------------------------*/
 
-#define TX false
-
 #define MAX_LENGTH 255
 #define TIMEOUT_UART_RX 10000
+#define TIMEOUT_RADIO_TX 10000
 
 /* Private variables ---------------------------------------------------------*/
 
@@ -52,6 +51,7 @@ int main(void)
     // Initialize the application.
     radio_init();
     uart_init();
+    radio_start_rx();
 
     while (1) {
         // Do not remove this call: Silicon Labs components process action routine
@@ -63,17 +63,20 @@ int main(void)
         sl_power_manager_sleep();
 #endif
 
-#if TX
         if (uart_get_rx_available() > 0) {
             sl_udelay_wait(TIMEOUT_UART_RX);
             uint8_t len = MAX_LENGTH;
             uart_rx(frame, &len);
             radio_tx(frame, len);
+            sl_udelay_wait(TIMEOUT_RADIO_TX);
+            radio_start_rx();
         }
-#else
-        uint8_t len = MAX_LENGTH;
-        radio_rx(frame, &len);
-        uart_tx(frame, len);
-#endif
+
+        if (radio_is_rx_completed()) {
+            uint8_t len = MAX_LENGTH;
+            radio_get_rx_frame(frame, &len);
+            uart_tx(frame, len);
+            radio_start_rx();
+        }
     }
 }

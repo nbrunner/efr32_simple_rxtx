@@ -17,6 +17,7 @@
 
 /* Includes ------------------------------------------------------------------*/
 
+#include <stdbool.h>
 #include <stdint.h>
 
 /* Exported functions --------------------------------------------------------*/
@@ -24,6 +25,12 @@
 void radio_init(void);
 
 void radio_tx(const uint8_t* data, uint8_t len);
+
+void radio_start_rx(void);
+
+bool radio_is_rx_completed(void);
+
+void radio_get_rx_frame(uint8_t* data, uint8_t* len);
 
 void radio_rx(uint8_t* data, uint8_t* len);
 

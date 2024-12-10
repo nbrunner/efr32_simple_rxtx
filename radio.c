@@ -45,6 +45,40 @@ void radio_tx(const uint8_t* data, uint8_t len)
     assert(status == RAIL_STATUS_NO_ERROR);
 }
 
+void radio_start_rx(void)
+{
+    events = 0;
+    RAIL_Status_t status = RAIL_StartRx(rail_handle, CHANNEL, NULL);
+    assert(status == RAIL_STATUS_NO_ERROR);
+}
+
+bool radio_is_rx_completed(void)
+{
+    return (events & RAIL_EVENTS_RX_COMPLETION) != 0;
+}
+
+void radio_get_rx_frame(uint8_t* data, uint8_t* len)
+{
+    RAIL_RxPacketInfo_t packet_info;
+    RAIL_RxPacketDetails_t packet_details;
+
+    if ((events & RAIL_EVENTS_RX_COMPLETION) != 0) {
+        RAIL_RxPacketHandle_t packet_handle = RAIL_GetRxPacketInfo(rail_handle, RAIL_RX_PACKET_HANDLE_OLDEST_COMPLETE, &packet_info);
+        if ((packet_handle != RAIL_RX_PACKET_HANDLE_INVALID) && (packet_info.packetBytes <= *len)) {
+            RAIL_CopyRxPacket(data, &packet_info);
+            *len = packet_info.packetBytes;
+            RAIL_Status_t status = RAIL_GetRxPacketDetails(rail_handle, packet_handle, &packet_details);
+            assert(status == RAIL_STATUS_NO_ERROR);
+            status = RAIL_ReleaseRxPacket(rail_handle, packet_handle);
+            assert(status == RAIL_STATUS_NO_ERROR);
+        } else {
+            *len = 0;
+        }
+    } else {
+        *len = 0;
+    }
+}
+
 void radio_rx(uint8_t* data, uint8_t* len)
 {
     RAIL_RxPacketInfo_t packet_info;
