@@ -64,9 +64,9 @@ void uart_init(void)
     UARTDRV_InitEuart(handle, &init_data);
 }
 
-void uart_tx(uint8_t* data, uint8_t len)
+void uart_tx(const uint8_t* data, uint8_t len)
 {
-    UARTDRV_Transmit(handle, data, len, NULL);
+    UARTDRV_Transmit(handle, (uint8_t*)data, len, NULL);
 }
 
 void uart_rx(void)

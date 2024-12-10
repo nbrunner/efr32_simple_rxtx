@@ -23,7 +23,7 @@
 
 void uart_init(void);
 
-void uart_tx(uint8_t* data, uint8_t len);
+void uart_tx(const uint8_t* data, uint8_t len);
 
 void uart_rx(void);
 
