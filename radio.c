@@ -38,14 +38,15 @@ void radio_init(void)
 
 void radio_tx(const uint8_t* data, uint8_t len)
 {
-    RAIL_Status_t rail_status = RAIL_STATUS_NO_ERROR;
     uint16_t bytes_writen_in_fifo = RAIL_WriteTxFifo(rail_handle, data, len, true);
-    rail_status = RAIL_StartTx(rail_handle, CHANNEL, RAIL_TX_OPTIONS_DEFAULT, NULL);
+    assert(bytes_writen_in_fifo == len);
+
+    RAIL_Status_t status = RAIL_StartTx(rail_handle, CHANNEL, RAIL_TX_OPTIONS_DEFAULT, NULL);
+    assert(status == RAIL_STATUS_NO_ERROR);
 }
 
 void radio_rx(uint8_t* data, uint8_t* len)
 {
-    RAIL_Status_t rail_status = RAIL_STATUS_NO_ERROR;
     RAIL_RxPacketInfo_t packet_info;
     RAIL_RxPacketDetails_t packet_details;
 
@@ -57,11 +58,15 @@ void radio_rx(uint8_t* data, uint8_t* len)
         if ((packet_handle != RAIL_RX_PACKET_HANDLE_INVALID) && (packet_info.packetBytes <= *len)) {
             RAIL_CopyRxPacket(data, &packet_info);
             *len = packet_info.packetBytes;
-            RAIL_GetRxPacketDetails(rail_handle, packet_handle, &packet_details);
-            RAIL_ReleaseRxPacket(rail_handle, packet_handle);
+            status = RAIL_GetRxPacketDetails(rail_handle, packet_handle, &packet_details);
+            assert(status == RAIL_STATUS_NO_ERROR);
+            status = RAIL_ReleaseRxPacket(rail_handle, packet_handle);
+            assert(status == RAIL_STATUS_NO_ERROR);
         } else {
             *len = 0;
         }
+    } else {
+        *len = 0;
     }
 }
 

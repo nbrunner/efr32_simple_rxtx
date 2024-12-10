@@ -77,15 +77,17 @@ void uart_init(void)
     init_data.rxQueue = (UARTDRV_Buffer_FifoQueue_t*) &rxQueue;
     init_data.txQueue = (UARTDRV_Buffer_FifoQueue_t*) &txQueue;
 
-    UARTDRV_InitEuart(handle, &init_data);
+    Ecode_t err = UARTDRV_InitEuart(handle, &init_data);
+    assert(err == ECODE_EMDRV_UARTDRV_OK);
 
-    Ecode_t err = UARTDRV_Receive(handle, rx_buffer, RX_BUFFER_SIZE, rx_complete);
+    err = UARTDRV_Receive(handle, rx_buffer, RX_BUFFER_SIZE, rx_complete);
     assert(err == ECODE_EMDRV_UARTDRV_OK);
 }
 
 void uart_tx(const uint8_t* data, uint8_t len)
 {
-    UARTDRV_Transmit(handle, (uint8_t*)data, len, NULL);
+    Ecode_t err = UARTDRV_Transmit(handle, (uint8_t*)data, len, NULL);
+    assert(err == ECODE_EMDRV_UARTDRV_OK);
 }
 
 void uart_rx(uint8_t* data, uint8_t* len)
