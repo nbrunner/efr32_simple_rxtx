@@ -55,6 +55,17 @@ PROJECT_SOURCE_FILES = \
  $(SDK_PATH)/platform/service/system/src/sl_system_process_action.c \
  $(SDK_PATH)/platform/service/udelay/src/sl_udelay.c \
  $(SDK_PATH)/platform/service/udelay/src/sl_udelay_armv6m_gcc.S \
+ $(SDK_PATH)/util/third_party/freertos/cmsis/Source/cmsis_os2.c \
+ $(SDK_PATH)/util/third_party/freertos/kernel/croutine.c \
+ $(SDK_PATH)/util/third_party/freertos/kernel/event_groups.c \
+ $(SDK_PATH)/util/third_party/freertos/kernel/list.c \
+ $(SDK_PATH)/util/third_party/freertos/kernel/portable/GCC/ARM_CM33_NTZ/non_secure/port.c \
+ $(SDK_PATH)/util/third_party/freertos/kernel/portable/GCC/ARM_CM33_NTZ/non_secure/portasm.c \
+ $(SDK_PATH)/util/third_party/freertos/kernel/portable/MemMang/heap_4.c \
+ $(SDK_PATH)/util/third_party/freertos/kernel/queue.c \
+ $(SDK_PATH)/util/third_party/freertos/kernel/stream_buffer.c \
+ $(SDK_PATH)/util/third_party/freertos/kernel/tasks.c \
+ $(SDK_PATH)/util/third_party/freertos/kernel/timers.c \
  autogen/rail_config.c \
  autogen/sl_board_default_init.c \
  autogen/sl_event_handler.c \
@@ -108,6 +119,7 @@ INCLUDES += \
  -I$(SDK_PATH)/hardware/driver/configuration_over_swo/inc \
  -I$(SDK_PATH)/hardware/driver/mx25_flash_shutdown/inc/sl_mx25_flash_shutdown_eusart \
  -I$(SDK_PATH)/platform/CMSIS/Core/Include \
+ -I$(SDK_PATH)/platform/CMSIS/RTOS2/Include \
  -I$(SDK_PATH)/platform/Device/SiliconLabs/EFR32FG25/Include \
  -I$(SDK_PATH)/platform/common/inc \
  -I$(SDK_PATH)/platform/common/toolchain/inc \
@@ -145,6 +157,9 @@ INCLUDES += \
  -I$(SDK_PATH)/platform/service/sleeptimer/inc \
  -I$(SDK_PATH)/platform/service/system/inc \
  -I$(SDK_PATH)/platform/service/udelay/inc \
+ -I$(SDK_PATH)/util/third_party/freertos/cmsis/Include \
+ -I$(SDK_PATH)/util/third_party/freertos/kernel/include \
+ -I$(SDK_PATH)/util/third_party/freertos/kernel/portable/GCC/ARM_CM33_NTZ/non_secure \
  -I. \
  -Iautogen \
  -Iconfig \
