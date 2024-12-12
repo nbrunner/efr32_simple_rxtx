@@ -13,7 +13,7 @@ all: debug
 ####################################################################
 
 # Values set by the initial generation
-PROJECTNAME = silabs_simple_rxtx
+PROJECTNAME = efr32_simple_rxtx
 ARM_GCC_DIR_WIN = C:/SiliconLabs/SimplicityStudio/v5/developer/toolchains/gnu_arm/12.2.rel1_2023.7/
 ARM_GCC_DIR_OSX = 
 ARM_GCC_DIR_LINUX = 

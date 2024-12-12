@@ -44,7 +44,7 @@
 		</cconfiguration>
 	</storageModule>
 	<storageModule moduleId="cdtBuildSystem" version="4.0.0">
-		<project id="silabs_simple_rxtx.null.888807731" name="silabs_simple_rxtx"/>
+		<project id="efr32_simple_rxtx.null.888807731" name="efr32_simple_rxtx"/>
 	</storageModule>
 	<storageModule moduleId="com.silabs.ss.framework.ide.project.core.cpp"/>
 	<storageModule moduleId="scannerConfiguration">

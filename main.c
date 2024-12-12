@@ -3,7 +3,7 @@
  * @file    main.c
  * @author  nicolas.brunner@heig-vd.ch
  * @date    05-December-2024
- * @brief   Main of silabs_simple_rxtx
+ * @brief   Main of efr32_simple_rxtx
  *          based on rail_soc_empty
  ******************************************************************************
  * @copyright HEIG-VD
