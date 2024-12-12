@@ -92,7 +92,7 @@ LD      = "$(ARM_GCC_DIR)/bin/arm-none-eabi-gcc"
 # Include sub-makefiles                                            #
 # Define a makefile here to add files/settings to the build.       #
 ####################################################################
--include silabs_simple_rxtx.project.mak
+-include $(PROJECTNAME).project.mak
 
 
 ####################################################################
