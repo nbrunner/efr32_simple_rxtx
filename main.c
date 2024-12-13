@@ -18,6 +18,9 @@
 #include <stdbool.h>
 #include <string.h>
 
+#include "FreeRTOS.h"
+#include "task.h"
+
 #include "sl_component_catalog.h"
 #include "sl_system_init.h"
 #if defined(SL_CATALOG_POWER_MANAGER_PRESENT)
@@ -38,6 +41,10 @@
 
 static uint8_t frame[MAX_LENGTH];
 
+/* Private functions declaration ---------------------------------------------*/
+
+static void main_task(void* argument);
+
 /* Public functions ----------------------------------------------------------*/
 
 int main(void)
@@ -52,6 +59,16 @@ int main(void)
     uart_init();
     radio_start_rx();
 
+    xTaskCreate(main_task, "main", configMINIMAL_STACK_SIZE, NULL, tskIDLE_PRIORITY + 1, NULL);
+
+    NVIC_SetPriority(SVCall_IRQn, 0); // Needed because sl_interrupt_manager_init() set it to 5
+    vTaskStartScheduler();
+}
+
+/* Private functions implementation ------------------------------------------*/
+
+static void main_task(void* argument)
+{
     while (1) {
         // Do not remove this call: Silicon Labs components process action routine
         // must be called from the super loop.
