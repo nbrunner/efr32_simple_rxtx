@@ -6,7 +6,7 @@
 #include "sl_clock_manager_init.h"
 #include "sl_device_init_dcdc.h"
 #include "sl_clock_manager.h"
-#include "sl_device_init_emu.h"
+#include "sl_hfxo_manager.h"
 #include "pa_conversions_efr32.h"
 #include "sl_rail_util_pti.h"
 #include "sl_rail_util_rssi.h"
@@ -14,6 +14,7 @@
 #include "sl_board_control.h"
 #include "sl_mpu.h"
 #include "sl_debug_swo.h"
+#include "sl_power_manager.h"
 #include "sl_cos.h"
 
 void sl_platform_init(void)
@@ -24,8 +25,9 @@ void sl_platform_init(void)
   sl_clock_manager_init();
   sl_device_init_dcdc();
   sl_clock_manager_runtime_init();
-  sl_device_init_emu();
+  sl_hfxo_manager_init_hardware();
   sl_board_init();
+  sl_power_manager_init();
 }
 
 void sl_driver_init(void)

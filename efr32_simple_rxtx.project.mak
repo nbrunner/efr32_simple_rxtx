@@ -17,6 +17,7 @@ PROJECT_SOURCE_FILES = \
  $(SDK_PATH)/platform/Device/SiliconLabs/EFR32FG25/Source/system_efr32fg25.c \
  $(SDK_PATH)/platform/common/src/sl_assert.c \
  $(SDK_PATH)/platform/common/src/sl_core_cortexm.c \
+ $(SDK_PATH)/platform/common/src/sl_slist.c \
  $(SDK_PATH)/platform/common/src/sl_syscalls.c \
  $(SDK_PATH)/platform/driver/debug/src/sl_debug_swo.c \
  $(SDK_PATH)/platform/emdrv/dmadrv/src/dmadrv.c \
@@ -33,6 +34,7 @@ PROJECT_SOURCE_FILES = \
  $(SDK_PATH)/platform/emlib/src/em_prs.c \
  $(SDK_PATH)/platform/emlib/src/em_system.c \
  $(SDK_PATH)/platform/emlib/src/em_vdac.c \
+ $(SDK_PATH)/platform/peripheral/src/sl_hal_sysrtc.c \
  $(SDK_PATH)/platform/radio/rail_lib/plugin/pa-conversions/pa_conversions_efr32.c \
  $(SDK_PATH)/platform/radio/rail_lib/plugin/pa-conversions/pa_curves_efr32.c \
  $(SDK_PATH)/platform/radio/rail_lib/plugin/rail_util_protocol/sl_rail_util_protocol.c \
@@ -44,13 +46,21 @@ PROJECT_SOURCE_FILES = \
  $(SDK_PATH)/platform/service/clock_manager/src/sl_clock_manager_init.c \
  $(SDK_PATH)/platform/service/clock_manager/src/sl_clock_manager_init_hal_s2.c \
  $(SDK_PATH)/platform/service/device_init/src/sl_device_init_dcdc_s2.c \
- $(SDK_PATH)/platform/service/device_init/src/sl_device_init_emu_s2.c \
  $(SDK_PATH)/platform/service/device_manager/clocks/sl_device_clock_efr32xg25.c \
  $(SDK_PATH)/platform/service/device_manager/devices/sl_device_peripheral_hal_efr32xg25.c \
  $(SDK_PATH)/platform/service/device_manager/src/sl_device_clock.c \
+ $(SDK_PATH)/platform/service/hfxo_manager/src/sl_hfxo_manager.c \
+ $(SDK_PATH)/platform/service/hfxo_manager/src/sl_hfxo_manager_hal_s2.c \
  $(SDK_PATH)/platform/service/interrupt_manager/src/sl_interrupt_manager_cortexm.c \
  $(SDK_PATH)/platform/service/memory_manager/src/sl_memory_manager_region.c \
  $(SDK_PATH)/platform/service/mpu/src/sl_mpu.c \
+ $(SDK_PATH)/platform/service/power_manager/src/sl_power_manager.c \
+ $(SDK_PATH)/platform/service/power_manager/src/sl_power_manager_debug.c \
+ $(SDK_PATH)/platform/service/power_manager/src/sl_power_manager_hal_s2.c \
+ $(SDK_PATH)/platform/service/sleeptimer/src/sl_sleeptimer.c \
+ $(SDK_PATH)/platform/service/sleeptimer/src/sl_sleeptimer_hal_burtc.c \
+ $(SDK_PATH)/platform/service/sleeptimer/src/sl_sleeptimer_hal_sysrtc.c \
+ $(SDK_PATH)/platform/service/sleeptimer/src/sl_sleeptimer_hal_timer.c \
  $(SDK_PATH)/platform/service/system/src/sl_system_init.c \
  $(SDK_PATH)/platform/service/system/src/sl_system_process_action.c \
  $(SDK_PATH)/platform/service/udelay/src/sl_udelay.c \
@@ -62,6 +72,7 @@ PROJECT_SOURCE_FILES = \
  $(SDK_PATH)/util/third_party/freertos/kernel/portable/GCC/ARM_CM33_NTZ/non_secure/port.c \
  $(SDK_PATH)/util/third_party/freertos/kernel/portable/GCC/ARM_CM33_NTZ/non_secure/portasm.c \
  $(SDK_PATH)/util/third_party/freertos/kernel/portable/MemMang/heap_4.c \
+ $(SDK_PATH)/util/third_party/freertos/kernel/portable/SiliconLabs/tick_power_manager.c \
  $(SDK_PATH)/util/third_party/freertos/kernel/queue.c \
  $(SDK_PATH)/util/third_party/freertos/kernel/stream_buffer.c \
  $(SDK_PATH)/util/third_party/freertos/kernel/tasks.c \
@@ -132,6 +143,7 @@ INCLUDES += \
  -I$(SDK_PATH)/platform/emdrv/uartdrv/config \
  -I$(SDK_PATH)/platform/emdrv/uartdrv/inc \
  -I$(SDK_PATH)/platform/emlib/inc \
+ -I$(SDK_PATH)/platform/peripheral/inc \
  -I$(SDK_PATH)/platform/radio/rail_lib/chip/efr32/efr32xg2x \
  -I$(SDK_PATH)/platform/radio/rail_lib/common \
  -I$(SDK_PATH)/platform/radio/rail_lib/plugin/pa-conversions \
@@ -149,10 +161,12 @@ INCLUDES += \
  -I$(SDK_PATH)/platform/service/clock_manager/src \
  -I$(SDK_PATH)/platform/service/device_init/inc \
  -I$(SDK_PATH)/platform/service/device_manager/inc \
+ -I$(SDK_PATH)/platform/service/hfxo_manager/inc \
  -I$(SDK_PATH)/platform/service/interrupt_manager/inc \
  -I$(SDK_PATH)/platform/service/interrupt_manager/inc/arm \
  -I$(SDK_PATH)/platform/service/memory_manager/inc \
  -I$(SDK_PATH)/platform/service/mpu/inc \
+ -I$(SDK_PATH)/platform/service/power_manager/inc \
  -I$(SDK_PATH)/platform/service/sleeptimer/config \
  -I$(SDK_PATH)/platform/service/sleeptimer/inc \
  -I$(SDK_PATH)/platform/service/system/inc \
