@@ -61,7 +61,6 @@ int main(void)
 
     xTaskCreate(main_task, "main", configMINIMAL_STACK_SIZE, NULL, tskIDLE_PRIORITY + 1, NULL);
 
-    NVIC_SetPriority(SVCall_IRQn, 0); // Needed because sl_interrupt_manager_init() set it to 5
     vTaskStartScheduler();
 }
 
